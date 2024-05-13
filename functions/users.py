@@ -55,6 +55,7 @@ def add_users(form,db):
                    tall=form.tall,
                    weight = form.weight,
                    username=form.username,
+                   tg_id = form.tg_id,
                    password=get_password_hash(form.password)
                    )
     db.add(new_user)
@@ -80,6 +81,7 @@ def update_users(id,form,db):
         Users.tall:form.tall,
         Users.weight:form.weight,
         Users.username:form.username,
+        Users.tg_id:form.tg_id,
         Users.password:form.password,
         Users.status:form.status,
 
