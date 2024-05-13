@@ -42,9 +42,6 @@ def all_users(search,id,tg_id,from_date,end_date,page,limit,db,status):
 
 
 def add_users(form,db):
-    user = db.query(Users).filter(Users.username==form.username).all()
-    if user:
-        raise HTTPException(status_code=400,detail="Bunday username mavjud qayta kiriting !")
     new_user=Users(name=form.name,
                    roll=form.roll,
                    last_name=form.last_name,
