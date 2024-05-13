@@ -33,8 +33,8 @@ def all_satatistikas(topic_id,question_id,topic_name,question_name, id, from_dat
     return pagination(form=statistikas, page=page, limit=limit)
 
 
-def statistika_adding(topic_id,question_id,topic_name, question_name, answer_a, answer_b, answer_c, answer_d, answer_e, answer_f, db):
-    statistikas = db.query(Statistika).filter(Statistika.topic_name == topic_name,Statistika.question_name == question_name).first()
+def statistika_adding(topic_id, question_id, topic_name, question_name, answer_a, answer_b, answer_c, answer_d, answer_e, answer_f, db):
+    statistikas = db.query(Statistika).filter(Statistika.topic_name == topic_name, Statistika.question_name == question_name).first()
     if statistikas is None:
         statistikas = Statistika(
             topic_id=topic_id,
@@ -50,18 +50,14 @@ def statistika_adding(topic_id,question_id,topic_name, question_name, answer_a, 
         )
         db.add(statistikas)
 
-
-
     answers = ['answer_a', 'answer_b', 'answer_c', 'answer_d', 'answer_e', 'answer_f']
     for answer in answers:
         if locals().get(answer) is not None:
             new_answer = getattr(statistikas, answer) + locals().get(answer)
-            db.query(Statistika).filter(Statistika.topic_name == topic_name).update({
-                getattr(Statistika, answer): new_answer
-            })
+            setattr(statistikas, answer, new_answer)
 
     db.commit()
-    return {"data": "Statistika update base"}
+    return {"data": "Statistika bazaga yangilandi"}
 
 
 def add_statistikas(form, db):
@@ -79,7 +75,7 @@ def add_statistikas(form, db):
         db=db
     )
 
-    return {"data": "Statistika add base"}
+    return {"data": "Statistika bazaga qo'shildi"}
 
 def update_statistikas(id, form, db):
     if one_statistika(id=form.id, db=db) is None:
