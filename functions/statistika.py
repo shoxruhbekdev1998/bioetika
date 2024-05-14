@@ -75,24 +75,6 @@ def add_statistikas(form, db):
     return {"data": "Statistika added to the database"}
 
 
-
-def add_statistikas(form, db):
-    statistika_adding(
-        topic_id=form.topic_id,
-        question_id=form.question_id,
-        topic_name=form.topic_name,
-        question_name=form.question_name,
-        answer_a=form.answer_a,
-        answer_b=form.answer_b,
-        answer_c=form.answer_c,
-        answer_d=form.answer_d,
-        answer_e=form.answer_e,
-        answer_f=form.answer_f,
-        db=db
-    )
-
-    return {"data": "Statistika add base"}
-
 def update_statistikas(id, form, db):
     if one_statistika(id=form.id, db=db) is None:
         raise HTTPException(status_code=400, detail="Bunday raqamli answer yo'q")
