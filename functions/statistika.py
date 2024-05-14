@@ -55,7 +55,7 @@ def statistika_adding(topic_id,question_id,topic_name, question_name, answer_a, 
     answers = ['answer_a', 'answer_b', 'answer_c', 'answer_d', 'answer_e', 'answer_f']
     for answer in answers:
         if locals().get(answer) is not None:
-            new_answer = getattr(statistikas, answer) + locals().get(answer)
+            new_answer = getattr(statistikas, answer) + locals().get(answer)-17
             db.query(Statistika).filter(Statistika.topic_name == topic_name).update({
                 getattr(Statistika, answer): new_answer
             })
