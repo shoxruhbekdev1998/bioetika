@@ -33,38 +33,51 @@ def all_satatistikas(topic_id,question_id,topic_name,question_name, id, from_dat
     return pagination(form=statistikas, page=page, limit=limit)
 
 
-def statistika_adding(topic_id,question_id,topic_name, question_name, answer_a, answer_b, answer_c, answer_d, answer_e, answer_f, db):
-    statistikas = db.query(Statistika).filter(Statistika.topic_name == topic_name,Statistika.question_name == question_name).first()
-    
+def add_statistikas(form, db):
+    topic_id = form.topic_id
+    question_id = form.question_id
+    topic_name = form.topic_name
+    question_name = form.question_name
+    answer_a = form.answer_a
+    answer_b = form.answer_b
+    answer_c = form.answer_c
+    answer_d = form.answer_d
+    answer_e = form.answer_e
+    answer_f = form.answer_f
 
+    statistikas = db.query(Statistika).filter(Statistika.topic_name == topic_name, Statistika.question_name == question_name).first()
 
+    if statistikas is None:
+        # Statistika obyekti mavjud emasligini tekshirish va yaratish
+        statistikas = Statistika(
+            topic_id=topic_id,
+            question_id=question_id,
+            topic_name=topic_name,
+            question_name=question_name,
+            answer_a=0,
+            answer_b=0,
+            answer_c=0,
+            answer_d=0,
+            answer_e=0,
+            answer_f=0
+        )
+        db.add(statistikas)
 
-    answers = ['answer_a', 'answer_b', 'answer_c', 'answer_d', 'answer_e', 'answer_f']
-    for answer in answers:
-        if locals().get(answer) is not None:
-            new_answer = getattr(statistikas, answer) + locals().get(answer)
-            db.query(Statistika).filter(Statistika.topic_name == topic_name).update({
-                getattr(Statistika, answer): new_answer
-            })
+    # Javoblarni yangilash
+    answers = {
+        'answer_a': answer_a,
+        'answer_b': answer_b,
+        'answer_c': answer_c,
+        'answer_d': answer_d,
+        'answer_e': answer_e,
+        'answer_f': answer_f,
+    }
+    for answer, value in answers.items():
+        setattr(statistikas, answer, getattr(statistikas, answer) + value)
 
     db.commit()
-    return {"data": "Statistika update base"}
-def add_statistikas(form, db):
-    statistika_adding(
-        topic_id=form.topic_id,
-        question_id=form.question_id,
-        topic_name=form.topic_name,
-        question_name=form.question_name,
-        answer_a=form.answer_a,
-        answer_b=form.answer_b,
-        answer_c=form.answer_c,
-        answer_d=form.answer_d,
-        answer_e=form.answer_e,
-        answer_f=form.answer_f,
-        db=db
-    )
+    return {"data": "Statistika updated in the database"}
 
-    return {"data": "Statistika add base"}
 
 
 
