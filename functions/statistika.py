@@ -78,9 +78,6 @@ def add_statistikas(form, db):
     db.commit()
     return {"data": "Statistika updated in the database"}
 
-
-
-
 def update_statistikas(id, form, db):
     if one_statistika(id=form.id, db=db) is None:
         raise HTTPException(status_code=400, detail="Bunday raqamli answer yo'q")
