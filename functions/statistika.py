@@ -33,7 +33,7 @@ def all_satatistikas(topic_id,question_id,topic_name,question_name, id, from_dat
     return pagination(form=statistikas, page=page, limit=limit)
 
 
-def add_statistikas(topic_id,question_id,topic_name, question_name, answer_a, answer_b, answer_c, answer_d, answer_e, answer_f, db):
+def statistika_adding(topic_id,question_id,topic_name, question_name, answer_a, answer_b, answer_c, answer_d, answer_e, answer_f, db):
     statistikas = db.query(Statistika).filter(Statistika.topic_name == topic_name,Statistika.question_name == question_name).first()
     if statistikas is None:
         statistikas = Statistika(
@@ -62,6 +62,24 @@ def add_statistikas(topic_id,question_id,topic_name, question_name, answer_a, an
 
     db.commit()
     return {"data": "Statistika update base"}
+
+
+def add_statistikas(form, db):
+    statistika_adding(
+        topic_id=form.topic_id,
+        question_id=form.question_id,
+        topic_name=form.topic_name,
+        question_name=form.question_name,
+        answer_a=form.answer_a,
+        answer_b=form.answer_b,
+        answer_c=form.answer_c,
+        answer_d=form.answer_d,
+        answer_e=form.answer_e,
+        answer_f=form.answer_f,
+        db=db
+    )
+
+    return {"data": "Statistika add base"}
 
 
 
