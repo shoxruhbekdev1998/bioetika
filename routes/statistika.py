@@ -15,9 +15,9 @@ from schemas.statistika import *
 router_statistika = APIRouter()
 
 @router_statistika.post('/add')
-def add_statistika(form:StatistikaCreate,db: Session = Depends(get_db),current_user: UserCurrent = Depends(get_current_active_user)):
+def add_statistika(topic_id,question_id,topic_name, question_name, answer_a, answer_b, answer_c, answer_d, answer_e, answer_f,db: Session = Depends(get_db),current_user: UserCurrent = Depends(get_current_active_user)):
 
-    if add_statistikas(topic_id,question_id,topic_name, question_name, answer_a, answer_b, answer_c, answer_d, answer_e, answer_f,db=db):
+    if add_statistikas(topic_id=topic_id,question_id=question_id,topic_name=topic_name, question_name=question_name, answer_a=answer_a, answer_b=answer_b, answer_c=answer_c, answer_d=answer_d, answer_e=answer_e, answer_f=answer_f,db=db):
         raise HTTPException(status_code=200, detail="Amaliyot muvofaqqiyatli bajarildi")
 
 
