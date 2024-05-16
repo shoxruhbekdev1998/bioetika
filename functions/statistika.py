@@ -34,22 +34,7 @@ def all_satatistikas(topic_id,question_id,topic_name,question_name, id, from_dat
 
 
 def statistika_adding(topic_id,question_id,topic_name, question_name, answer_a, answer_b, answer_c, answer_d, answer_e, answer_f, db):
-    statistikas = db.query(Statistika).filter(Statistika.topic_name == topic_name,Statistika.question_name == question_name).first()
-
-    if statistikas is None:
-        statistikas = Statistika(
-            topic_id=topic_id,
-            question_id=question_id,
-            topic_name=topic_name,
-            question_name=question_name,
-            answer_a=0,
-            answer_b=0,
-            answer_c=0,
-            answer_d=0,
-            answer_e=0,
-            answer_f=0
-        )
-        db.add(statistikas)
+    
 
 
 
