@@ -15,8 +15,8 @@ def all_answers(search,user_id,topic_id,question_id, id, from_date, end_date, pa
 
     if user_id:
         answers = answers.filter(Answers.user_id == user_id)
-    if topic_id:
-        answers = answers.filter(Answers.order_id == topic_id)
+        if topic_id:
+        answers = answers.filter(Answers.topic_id == topic_id)
     if question_id:
         answers = answers.filter(Answers.question_id == question_id)
 
